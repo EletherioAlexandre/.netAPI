@@ -3,12 +3,15 @@ using Course;
 namespace ActionsCourse {
     static class CourseMethods {
 
-        public static List<Student> StudentFolder { get; set; }
+        public static List<Student> StudentFolder { get; set; } = StudentFolder = new List<Student>();
 
+        public static void Init(IConfiguration config) {
+            var student = config.GetSection("Students").Get<List<Student>>();
+
+            StudentFolder = student;
+        }
         public static void Add(Student student) {
 
-            if (StudentFolder == null)
-                StudentFolder = new List<Student>();
             StudentFolder.Add(student);
         }
 

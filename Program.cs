@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
+var configuration = app.Configuration;
+
+CourseMethods.Init(configuration);
 
 app.MapPost("/register", (Student student) => {
 
@@ -37,5 +40,9 @@ app.MapDelete("/register/{id}", ([FromRoute] string id) => {
 
     return Results.Ok();
 });
+
+app.MapGet("/configuration/database", (IConfiguration configuration) => {
+    return Results.Ok($"{configuration["database:connection"]}/{configuration["database:Port"]}");
+}); 
 
 app.Run();
